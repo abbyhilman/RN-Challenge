@@ -1,14 +1,13 @@
 import { showMessage } from "../../utils";
 import { setLoading } from "./global";
 
-let url = `https://pokeapi.co/api/v2/pokemon?offset=24&limit=24`;
 
-export const getDataPokemon = () => (dispatch) => {
-  fetch(url)
+export const getDataPokemon = (limit, offset) => (dispatch) => {
+  fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
     .then((response) => response.json())
     .then((data) => {
-      dispatch(setLoading(false));
       dispatch({ type: "SET_POKEMON", value: data.results });
+      dispatch(setLoading(false));
     })
     .catch((err) => {
       showMessage(err || "Something Wrong");
