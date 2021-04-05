@@ -24,9 +24,9 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
   const Icon = ({label, focus}) => {
     switch (label) {
       case 'Home':
-        return focus ? <Ionicons name="ios-home"/> : <Ionicons name="ios-home"/>;
-      // case 'Order':
-      //   return focus ? <IcDeliveryOn /> : <IcDeliveryOff />;
+        return focus ? <Ionicons name="ios-home" size={20}/> : <Ionicons name="home-outline" size={20}/>;
+      case 'Favourites':
+        return focus ? <Ionicons name="heart" size={20}/> : <Ionicons name="heart-circle-outline" size={20}/>;
       // case 'Profile':
       //   return focus ? <IcProfile /> : <IcProfileOff />;
       // case 'Search':
@@ -121,13 +121,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: 15,
     paddingBottom: 13,
-    paddingHorizontal: 50,
+    paddingHorizontal: 80,
     justifyContent: 'space-between',
-  },
-  badgeStyle: {
-    position: 'absolute',
-    top: -4,
-    right: -4,
   },
   iconRow: {flexDirection: 'row'},
 });

@@ -14,3 +14,16 @@ export const getDataPokemon = (limit, offset) => (dispatch) => {
       dispatch(setLoading(false));
     });
 };
+
+export const getDetailPokemon = (name) => (dispatch) => {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch({type: "SET_DETAIL", value: data});
+      dispatch(setLoading(false));
+    })
+    .catch((err) => {
+      showMessage(err || "Something Wrong");
+      dispatch(setLoading(false));
+    })
+}

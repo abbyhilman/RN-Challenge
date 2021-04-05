@@ -10,5 +10,11 @@ export const homeReducer = (state = initHome, action) => {
             pokemons: action.value,
         }
     }
+    if (action.type === 'SET_DETAIL') {
+        return {
+            ...state,
+            detailsPokemon: action.value,
+        }
+    }
     return state;
 }
