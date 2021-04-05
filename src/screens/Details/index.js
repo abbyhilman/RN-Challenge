@@ -19,18 +19,19 @@ const Details = ({ route, navigation }) => {
   const { pokemon } = route.params;
   const [refreshing, setRefreshing] = useState(false);
   const { detailsPokemon } = useSelector((state) => state.homeReducer);
+  console.log(detailsPokemon.id);
 
   useEffect(async () => {
     dispatch(setLoading(true));
     dispatch(getDetailPokemon(pokemon));
   }, [dispatch]);
 
-  const [images, setImages] = useState([
-    detailsPokemon.sprites ? detailsPokemon.sprites.front_default : "",
-    detailsPokemon.sprites ? detailsPokemon.sprites.back_shiny : "",
-    detailsPokemon.sprites ? detailsPokemon.sprites.front_default : "",
-    detailsPokemon.sprites ? detailsPokemon.sprites.front_shiny : "",
-  ]);
+  let images = [
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${detailsPokemon.id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${detailsPokemon.id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${detailsPokemon.id}.png`,
+    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/${detailsPokemon.id}.png`,
+  ];
 
   const wait = (timeout) => {
     return new Promise((resolve) => {
@@ -157,6 +158,7 @@ const Details = ({ route, navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           data={images}
+          keyExtractor={(item, index) => index}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -166,12 +168,18 @@ const Details = ({ route, navigation }) => {
           }
           renderItem={({ item, index }) => (
             <Image
-              source={{ uri: item }} // Use item to set the image source
-              key={index} // Important to set a key for list items
+              source={{ uri: item }}
+              key={index}
               style={{
                 width: 260,
                 height: 260,
-                margin: 18,
+                shadowColor: "black",
+                shadowOffset: { width: 0, height: 7 },
+                shadowOpacity: 0.5,
+                shadowRadius: 10,
+                elevation: 14,
+                overflow: "hidden",
+                marginHorizontal: 40,
               }}
             />
           )}
@@ -209,6 +217,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     marginTop: -40,
     paddingTop: 26,
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
   },
 });

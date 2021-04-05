@@ -19,11 +19,10 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const { pokemons } = useSelector((state) => state.homeReducer);
   const [refreshing, setRefreshing] = useState(false);
+  const[data, setData] = useState([])
   const [searchfeild, setSearchfeild] = useState("");
   const [limit, setLimit] = useState(24);
   const [offset, setOffset] = useState(1);
-
-  // const Random
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -36,6 +35,16 @@ const Home = ({ navigation }) => {
     });
   };
 
+  const handleSearch = (text) => {
+    const newData = pokemons.filter(item => {
+      const itemData = item.name.toLowerCase();
+      const textData = text.toLowerCase();
+      return itemData.indexOf(textData) > -1
+    });
+    setData(newData)
+    setSearchfeild(text)
+  };
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     var RandomNumberLimit = Math.floor(Math.random() * 30) + 1;
@@ -45,15 +54,6 @@ const Home = ({ navigation }) => {
     );
     wait(200).then(() => setRefreshing(false));
   }, [dispatch]);
-
-  //   console.log(JSON.stringify(detail, null, 4), "detailPokemonAgain");
-
-  const handleSearch = (text) => {
-    const data = pokemons.filter((pokemon) => {
-      return pokemon.name.toLowerCase().includes(text.toLowerCase());
-    });
-    setSearchfeild(data, text);
-  };
 
   const Item = ({ pokemon }) => (
     <TouchableOpacity disabled style={styles.card}>
@@ -115,10 +115,10 @@ const Home = ({ navigation }) => {
           autoCorrect={false}
         />
       </View>
-      {searchfeild ? (
         <FlatList
           numColumns={2}
-          data={searchfeild}
+          style={{ flex: 1 }}
+          data={data.length > 0 ? data : pokemons}
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
@@ -131,23 +131,6 @@ const Home = ({ navigation }) => {
             />
           }
         />
-      ) : (
-        <FlatList
-          numColumns={2}
-          data={pokemons}
-          keyExtractor={(item, index) => index}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.5}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              enabled={true}
-            />
-          }
-        />
-      )}
     </SafeAreaView>
   );
 };
@@ -159,7 +142,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
   },
   title: {
     fontSize: 18,
@@ -181,9 +163,9 @@ const styles = StyleSheet.create({
   card: {
     display: "flex",
     alignItems: "center",
-    marginHorizontal: 20,
     marginVertical: 10,
     backgroundColor: "white",
     borderRadius: 15,
+    marginHorizontal: 24,
   },
 });
