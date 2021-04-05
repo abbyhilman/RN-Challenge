@@ -68,3 +68,8 @@ clone this repo, change branch to PokedexUpdate
 
 - yarn install
 - yarn ios or android
+
+## Demo App
+
+![image](https://drive.google.com/uc?export=view&id=17pAjAtO2GMr-FaaZG6aGuUuRWNym-sH0)
+
