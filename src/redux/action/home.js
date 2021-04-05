@@ -1,12 +1,11 @@
 import { showMessage } from "../../utils";
 import { setLoading } from "./global";
-
+import axios from "axios";
 
 export const getDataPokemon = (limit, offset) => (dispatch) => {
-  fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
-    .then((response) => response.json())
-    .then((data) => {
-      dispatch({ type: "SET_POKEMON", value: data.results });
+  axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
+    .then((response) => {
+      dispatch({ type: "SET_POKEMON", value: response.data.results });
       dispatch(setLoading(false));
     })
     .catch((err) => {
@@ -16,10 +15,9 @@ export const getDataPokemon = (limit, offset) => (dispatch) => {
 };
 
 export const getDetailPokemon = (name) => (dispatch) => {
-  fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    .then((response) => response.json())
-    .then((data) => {
-      dispatch({type: "SET_DETAIL", value: data});
+  axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    .then((response) => {
+      dispatch({type: "SET_DETAIL", value: response.data});
       dispatch(setLoading(false));
     })
     .catch((err) => {

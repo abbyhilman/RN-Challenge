@@ -56,10 +56,7 @@ const Home = ({ navigation }) => {
   };
 
   const Item = ({ pokemon }) => (
-    <TouchableOpacity
-      disabled
-      style={styles.card}
-    >
+    <TouchableOpacity disabled style={styles.card}>
       <ImageBackground
         source={require("../../assets/images/bgPokemon.png")}
         style={{
@@ -89,7 +86,9 @@ const Home = ({ navigation }) => {
       />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Details")}
+          onPress={() =>
+            navigation.navigate("Details", { pokemon: pokemon.name })
+          }
           style={{ padding: 10, alignSelf: "flex-end" }}
         >
           <Ionicons size={25} name="document-text-outline" />

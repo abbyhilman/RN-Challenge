@@ -24,13 +24,11 @@ const Navigation = () => {
         component={MainApp}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Share"
-        component={Share}
-      />
+      <Stack.Screen name="Share" component={Share} />
       <Stack.Screen
         name="Details"
         component={Details}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
