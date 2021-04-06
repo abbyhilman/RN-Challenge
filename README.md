@@ -71,5 +71,5 @@ clone this repo, change branch to PokedexUpdate
 
 ## Demo App
 
-![image](https://drive.google.com/uc?export=view&id=17pAjAtO2GMr-FaaZG6aGuUuRWNym-sH0)
+![image](https://drive.google.com/uc?export=view&id=190dvM6-6ZcSTv8LsOHDAlPiMkYku_byJ)
 
