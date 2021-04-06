@@ -88,18 +88,20 @@ const Details = ({ route, navigation }) => {
         <FlatList
           data={image}
           keyExtractor={(item, index) => index}
+          removeClippedSubviews={false}
+          contentContainerStyle={{ width, height: BACKDROP_HEIGHT }}
           renderItem={({ item, index }) => {
             if (!item) {
               return null;
             }
 
-            const inputRange = [
-              (index - 2) * ITEM_SIZE,
-              (index - 1) * ITEM_SIZE,
-            ];
+            
 
             const translateX = scrollX.interpolate({
-              inputRange,
+              inputRange: [
+                (index - 2) * ITEM_SIZE,
+                (index - 1) * ITEM_SIZE,
+              ],
               outputRange: [-width, 0],
             });
             return (
@@ -264,6 +266,9 @@ const Details = ({ route, navigation }) => {
           data={images}
           keyExtractor={(item, index) => index}
           snapToInterval={ITEM_SIZE}
+          decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
+          renderToHardwareTextureAndroid
+          snapToAlignment='start'
           bounces={false}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
@@ -286,6 +291,7 @@ const Details = ({ route, navigation }) => {
             const translateY = scrollX.interpolate({
               inputRange,
               outputRange: [100, -50, 100],
+              extrapolate: 'clamp',
             });
             return (
               <View style={{ width: ITEM_SIZE }}>
