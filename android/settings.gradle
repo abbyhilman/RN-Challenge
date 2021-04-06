@@ -1,4 +1,4 @@
-rootProject.name = 'RN-Challenge'
+rootProject.name = 'Pokedex'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()

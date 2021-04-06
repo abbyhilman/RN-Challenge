@@ -65,6 +65,6 @@
     <key>UIRequiresFullScreen</key>
     <true/>
     <key>CFBundleDisplayName</key>
-    <string>RN-Challenge</string>
+    <string>PokeDex</string>
   </dict>
 </plist>
